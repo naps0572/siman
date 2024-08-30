@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación de Tickets</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://memortiz.com/wp-content/uploads/2018/06/siman-brand-guidelines-09.jpg?w=1000&h=625');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+        }
+
+        #container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #analyst-name {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        #assign-btn {
+            font-size: 24px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        #assign-btn:hover {
+            background-color: #45a049;
+        }
+
+        #sequence {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #sequence ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Asignación de Tickets</h1>
+        <div id="analyst-name">Nombre del Analista</div>
+        <button id="assign-btn">Asignado</button>
+    </div>
+
+    <div id="sequence">
+        <h3>Secuencia de Asignación</h3>
+        <ul id="analyst-list"></ul>
+    </div>
+
+    <script>
+        let analysts = ["Nestor", "Breiner", "Manuel", "Ditta"];
+        
+
+        const updateAnalystName = () => {
+            document.getElementById("analyst-name").innerText = analysts[0];
+        }
+
+        const updateSequenceList = () => {
+            const listElement = document.getElementById("analyst-list");
+            listElement.innerHTML = ""; // Limpiar la lista
+
+            // Crear una lista invertida para mostrar la secuencia deseada
+            for (let i = analysts.length - 1; i >= 0; i--) {
+                const listItem = document.createElement("li");
+                listItem.innerText = `${analysts.length - i}. ${analysts[i]}`;
+                listElement.appendChild(listItem);
+            }
+        }
+
+        document.getElementById("assign-btn").addEventListener("click", () => {
+            analysts.push(analysts.shift()); // Mueve el primer analista al final de la lista
+            updateAnalystName();
+            updateSequenceList(); // Actualiza la secuencia visualmente
+        });
+
+        // Inicializar la pantalla
+        updateAnalystName();
+        updateSequenceList();
+    </script>
+</body>
+</html>
